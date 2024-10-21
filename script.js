@@ -69,7 +69,8 @@ function draw() {
             y + ballRadius > hole.y && y < hole.y + hole.height) {
             // Ball fell through a hole
             y = hole.y - ballRadius;
-            dy = 2; // Reset vertical speed
+            // Reset vertical speed
+            dy = 2; 
             break;
         }
     }
