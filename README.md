@@ -32,12 +32,26 @@ Sunspot is an AI-driven project aimed at surpassing human performance in predict
 ## Development Steps
 
 1. **Data Collection**
-   - Register for a Mapillary account and obtain an API key.
-   - Develop a data scraper using Python with libraries such as `requests` or `mapillary`.
-   - Define the scope to cover key regions in Florida (e.g., Miami, Orlando, Tampa).
-   - Fetch street view images along with their latitude and longitude.
-   - Implement rate limit handling to comply with Mapillary’s usage policies.
-   - Store images in a structured directory and maintain a metadata file (CSV or database) linking image paths to their coordinates.
+   - **Register for a Mapillary account and obtain an API key.**
+     - Visit the Mapillary website and create an account.
+     - Navigate to the developer portal and obtain an API key.
+     - Store the API key securely for use in the data collection script.
+   - **Develop a data scraper using Python with libraries such as `requests` or `mapillary`.**
+     - Utilize the `requests` library to make API calls to the Mapillary API.
+     - Consider using the `mapillary` library for simplified API interaction.
+     - Implement error handling and rate limiting to ensure API compliance.
+   - **Define the scope to cover key regions in Florida (e.g., Miami, Orlando, Tampa).**
+     - Determine the geographical boundaries of the target regions.
+     - Use latitude and longitude coordinates to define the bounding box for data collection.
+   - **Fetch street view images along with their latitude and longitude.**
+     - Use the Mapillary API to retrieve street view images within the defined bounding box.
+     - Extract the latitude and longitude metadata associated with each image.
+   - **Implement rate limit handling to comply with Mapillary’s usage policies.**
+     - Monitor API calls and implement a mechanism to pause or throttle requests if rate limits are exceeded.
+     - Ensure responsible and ethical data collection practices.
+   - **Store images in a structured directory and maintain a metadata file (CSV or database) linking image paths to their coordinates.**
+     - Create a directory structure to organize images based on regions or cities.
+     - Create a metadata file (CSV or database) to store image paths and corresponding latitude and longitude values.
 
 2. **Data Preprocessing**
    - Organize images into directories based on regions or cities if necessary.

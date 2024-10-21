@@ -1,0 +1,38 @@
+
+## Usage
+
+1. **Data Collection:**
+   - Run the data collection script to fetch street view images from Mapillary.
+   - Ensure you have obtained an API key and configured the script with the correct API endpoint and parameters.
+   - Specify the target region and bounding box for data collection.
+   - The script will download images and store them in a structured directory along with a metadata file.
+
+2. **Data Preprocessing:**
+   - Organize the downloaded images into directories based on regions or cities.
+   - Encode latitude and longitude using cyclical encoding.
+   - Apply data augmentation techniques to enhance the dataset.
+   - Split the dataset into training and validation sets.
+
+3. **Model Training:**
+   - Train the model using the prepared dataset.
+   - Set training parameters such as batch size, epochs, and learning rate.
+   - Monitor training progress and adjust parameters as needed.
+
+4. **Model Evaluation:**
+   - Evaluate the trained model using the validation set.
+   - Calculate the mean geodesic error to assess model performance.
+   - Visualize predictions on a map to understand model accuracy.
+
+5. **Deployment:**
+   - Export the trained model in a deployable format.
+   - Set up the deployment environment with necessary dependencies.
+   - Develop a prediction script to input images and output geographical coordinates.
+   - Test the deployment by running the prediction script on sample images.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit issues or pull requests.
+
+## License
+
+This project is licensed under the MIT License.
