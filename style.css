@@ -97,3 +97,15 @@ h1 {
     font-size: 0.9em;
   }
 }
+
+/* Add gradient to the background */
+#background-gradient {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, #f0f0f0, #e0e0e0);
+  pointer-events: none;
+  z-index: -1;
+}
