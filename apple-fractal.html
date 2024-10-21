@@ -1,89 +1,113 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Apple-Style Fractal</title>
+  <title>Apple Fractal</title>
   <style>
     body {
-      background-color: #f0f0f0;
-      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      min-height: 100vh;
       margin: 0;
+      overflow: hidden;
     }
-
-    canvas {
-      background-color: #fff;
+    #controls {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: rgba(255, 255, 255, 0.8);
+      padding: 10px;
+      border-radius: 5px;
+    }
+    #controls label {
+      display: block;
+      margin-bottom: 5px;
+    }
+    #controls input {
+      width: 100px;
+      padding: 5px;
       border: 1px solid #ccc;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      border-radius: 3px;
     }
   </style>
 </head>
 <body>
-  <canvas id="fractalCanvas" width="600" height="600"></canvas>
-
+  <div id="controls">
+    <label for="depth">Depth:</label>
+    <input type="number" id="depth" value="8" min="1">
+    <label for="size">Size:</label>
+    <input type="number" id="size" value="800" min="1">
+    <button id="reset">Reset</button>
+  </div>
+  <canvas id="canvas"></canvas>
   <script>
-    const canvas = document.getElementById('fractalCanvas');
+    const canvas = document.getElementById('canvas');
     const ctx = canvas.getContext('2d');
+    const depthInput = document.getElementById('depth');
+    const sizeInput = document.getElementById('size');
+    const resetButton = document.getElementById('reset');
 
-    // Apple-inspired color palette
-    const colors = [
-      '#f0f0f0', // Light gray
-      '#e6e6e6', // Slightly darker gray
-      '#d9d9d9', // Even darker gray
-      '#c0c0c0', // Medium gray
-      '#a9a9a9', // Darker gray
-      '#808080', // Dark gray
-      '#696969', // Darker gray
-      '#525252', // Darkest gray
-      '#333333', // Black
+    let depth = 8;
+    let size = 800;
+
+    // Color palette
+    const appleColors = [
+      '#FF4500', // Orange-red
+      '#DC143C', // Crimson
+      '#B22222', // Firebrick
+      '#800000', // Maroon
     ];
 
-    // Randomly choose a color from the palette
-    const randomColor = () => colors[Math.floor(Math.random() * colors.length)];
+    function resizeCanvas() {
+      canvas.width = size;
+      canvas.height = size;
+      drawApple(size / 2, size / 2, size / 2, 0, depth);
+    }
 
-    // Function to draw a fractal
-    function drawFractal(x, y, size, depth) {
+    function drawApple(x, y, radius, angle, depth) {
       if (depth === 0) {
-        ctx.fillStyle = randomColor();
-        ctx.fillRect(x, y, size, size);
         return;
       }
 
-      // Randomly choose a fractal pattern
-      const pattern = Math.random() < 0.5 ? 'triangle' : 'square';
+      // Choose a random color from the palette
+      const appleColor = appleColors[Math.floor(Math.random() * appleColors.length)];
 
-      if (pattern === 'triangle') {
-        // Draw a triangle
-        ctx.beginPath();
-        ctx.moveTo(x + size / 2, y);
-        ctx.lineTo(x, y + size);
-        ctx.lineTo(x + size, y + size);
-        ctx.closePath();
-        ctx.fillStyle = randomColor();
-        ctx.fill();
+      ctx.beginPath();
+      ctx.arc(x, y, radius, 0, 2 * Math.PI);
+      ctx.fillStyle = appleColor;
+      ctx.fill();
 
-        // Recursively draw smaller triangles
-        drawFractal(x, y, size / 2, depth - 1);
-        drawFractal(x + size / 2, y, size / 2, depth - 1);
-        drawFractal(x, y + size / 2, size / 2, depth - 1);
-      } else {
-        // Draw a square
-        ctx.fillRect(x, y, size, size);
-        ctx.fillStyle = randomColor();
-        ctx.fill();
+      // Draw the stem
+      ctx.beginPath();
+      ctx.moveTo(x, y - radius);
+      ctx.lineTo(x, y - radius - radius * 0.1);
+      ctx.strokeStyle = 'brown';
+      ctx.lineWidth = 2;
+      ctx.stroke();
 
-        // Recursively draw smaller squares
-        drawFractal(x, y, size / 2, depth - 1);
-        drawFractal(x + size / 2, y, size / 2, depth - 1);
-        drawFractal(x, y + size / 2, size / 2, depth - 1);
-        drawFractal(x + size / 2, y + size / 2, size / 2, depth - 1);
-      }
+      // Varying size recursion
+      const sizeFactor = 0.7; // Adjust this value for different fractal patterns
+      const newRadius = radius * sizeFactor;
+
+      // Fractal angles
+      const angleVariation = Math.random() * 10 - 5; // Adjust this value for different fractal patterns
+      const newAngle = angle + angleVariation;
+
+      // Draw the recursive apples
+      drawApple(x + radius * Math.cos(newAngle), y + radius * Math.sin(newAngle), newRadius, newAngle, depth - 1);
+      drawApple(x - radius * Math.cos(newAngle), y - radius * Math.sin(newAngle), newRadius, newAngle, depth - 1);
     }
 
-    // Draw the fractal
-    drawFractal(0, 0, canvas.width, 6);
+    function reset() {
+      depth = 8;
+      size = 800;
+      depthInput.value = depth;
+      sizeInput.value = size;
+      resizeCanvas();
+    }
+
+    depthInput.addEventListener('input', resizeCanvas);
+    sizeInput.addEventListener('input', resizeCanvas);
+    resetButton.addEventListener('click', reset);
+    window.addEventListener('resize', resizeCanvas);
+
+    resizeCanvas();
   </script>
 </body>
 </html>
