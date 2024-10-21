@@ -53,6 +53,15 @@
       { x: 300, y: 300, width: 50, height: 10 },
     ];
 
+    // Event listeners for left and right arrow keys
+    document.addEventListener('keydown', (event) => {
+      if (event.key === 'ArrowLeft') {
+        player.x -= player.speed;
+      } else if (event.key === 'ArrowRight') {
+        player.x += player.speed;
+      }
+    });
+
     // Game loop
     function gameLoop() {
       // Clear canvas
