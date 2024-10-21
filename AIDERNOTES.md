@@ -1,4 +1,4 @@
-# AIDER NOTES
+# Sunspot Project Notes
 
 ## Project Notes
 
@@ -8,22 +8,35 @@
 - **Decisions:** [Insert any important decisions made here]
 - **Code Snippets:** [Insert any relevant code snippets here]
 
-## README.md Notes
+## Data Collection Notes
 
-- **Project Description:** [Insert project description from README.md here]
-- **Objectives:** [Insert project objectives from README.md here]
-- **Features:** [Insert project features from README.md here]
-- **Development Steps:** [Insert project development steps from README.md here]
-- **Installation:** [Insert project installation instructions from README.md here]
-- **Usage:** [Insert project usage instructions from README.md here]
-- **Contributing:** [Insert project contribution guidelines from README.md here]
-- **License:** [Insert project license information from README.md here]
+- **Mapillary API Key:** [Insert Mapillary API key here]
+- **Data Collection Regions:** [Insert list of data collection regions here]
+- **Data Collection Scope:** [Insert description of data collection scope here]
+- **Data Storage:** [Insert description of data storage method here]
+- **Metadata File:** [Insert description of metadata file format here]
 
-## ipynb Notes
+## Model Training Notes
 
-- **Section 1:** [Insert notes about section 1 of the ipynb file here]
-- **Section 2:** [Insert notes about section 2 of the ipynb file here]
-- **Section 3:** [Insert notes about section 3 of the ipynb file here]
+- **Model Architecture:** MobileNetV2
+- **Output Layer:** 4 values (sine and cosine of latitude and longitude)
+- **Transfer Learning:** Freeze base model layers initially
+- **Optimizer:** Adam
+- **Loss Function:** Custom Haversine loss function
+- **Training Parameters:** Batch size, number of epochs, learning rate
+- **Fine-tuning:** Unfreeze selected layers and continue training with a lower learning rate
+
+## Evaluation Notes
+
+- **Evaluation Metric:** Mean geodesic error
+- **Visualization Tools:** Folium, Matplotlib
+- **Robustness Checks:** Test on diverse datasets
+
+## Deployment Notes
+
+- **Model Format:** .h5 file
+- **Prediction Script:** Input images and output geographical coordinates
+- **User Interface:** (Optional) Flask or Streamlit
 
 ## Other Notes
 

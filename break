@@ -1,0 +1,8 @@
+
+### Results
+
+This code will collect street view images from Florida and store them in the `data` directory. It will also create a `metadata.csv` file containing the image URLs, latitudes, and longitudes.
+
+### Conclusion
+
+This section demonstrates the process of collecting street view data using the Mapillary API. The collected data will be used for training and evaluating the Sunspot model.
