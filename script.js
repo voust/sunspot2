@@ -22,78 +22,130 @@ const levels = [
 
 let currentLevel = 0;
 
-function drawBall() {
-    ctx.beginPath();
-    ctx.arc(x, y, ballRadius, 0, Math.PI * 2);
-    ctx.fillStyle = "#0095DD";
-    ctx.fill();
-    ctx.closePath();
-}
+// Create a Ball class
+class Ball {
+    constructor(x, y, radius, dx, dy) {
+        this.x = x;
+        this.y = y;
+        this.radius = radius;
+        this.dx = dx;
+        this.dy = dy;
+    }
 
-function drawLevel() {
-    const level = levels[currentLevel];
-    for (const hole of level.holes) {
-        ctx.fillStyle = "#f0f0f0"; // Same color as background
-        ctx.fillRect(hole.x, hole.y, hole.width, hole.height);
+    update() {
+        this.x += this.dx;
+        this.y += this.dy;
+    }
+
+    draw() {
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+        ctx.fillStyle = "#0095DD";
+        ctx.fill();
+        ctx.closePath();
+    }
+
+    checkCollision(hole) {
+        if (this.x > hole.x && this.x < hole.x + hole.width &&
+            this.y + this.radius > hole.y && this.y < hole.y + hole.height) {
+            return true;
+        }
+        return false;
     }
 }
 
-function draw() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    drawBall();
-    drawLevel();
-    x += dx;
-    y += dy;
+// Create a Level class
+class Level {
+    constructor(holes) {
+        this.holes = holes;
+    }
+
+    draw() {
+        for (const hole of this.holes) {
+            ctx.fillStyle = "#f0f0f0"; // Same color as background
+            ctx.fillRect(hole.x, hole.y, hole.width, hole.height);
+        }
+    }
+
+    checkCompletion(ball) {
+        // Check if the ball has fallen through all holes
+        return this.holes.every(hole => ball.checkCollision(hole));
+    }
+}
+
+// Create a GameState object
+const gameState = {
+    ball: new Ball(canvas.width / 2, ballRadius, ballRadius, 2, 2),
+    currentLevel: 0,
+    levels: [
+        new Level(levels[0].holes),
+        new Level(levels[1].holes)
+    ]
+};
+
+// Game loop
+function gameLoop() {
+    updateGame();
+    renderGame();
+    requestAnimationFrame(gameLoop);
+}
+
+function updateGame() {
+    gameState.ball.update();
 
     // Boundary checks
-    if (x + dx > canvas.width - ballRadius || x + dx < ballRadius) {
-        dx = -dx;
+    if (gameState.ball.x + gameState.ball.dx > canvas.width - gameState.ball.radius ||
+        gameState.ball.x + gameState.ball.dx < gameState.ball.radius) {
+        gameState.ball.dx = -gameState.ball.dx;
     }
 
     // Check for level completion
-    if (y + dy > canvas.height) {
-        currentLevel++;
-        if (currentLevel >= levels.length) {
+    if (gameState.ball.y + gameState.ball.dy > canvas.height) {
+        gameState.currentLevel++;
+        if (gameState.currentLevel >= gameState.levels.length) {
             // Game over (you win!)
             alert("You win!");
             return;
         }
-        x = canvas.width / 2;
-        y = ballRadius;
+        gameState.ball.x = canvas.width / 2;
+        gameState.ball.y = ballRadius;
     }
 
     // Check for hole collisions
-    const level = levels[currentLevel];
-    for (const hole of level.holes) {
-        if (x > hole.x && x < hole.x + hole.width &&
-            y + ballRadius > hole.y && y < hole.y + hole.height) {
+    const currentLevel = gameState.levels[gameState.currentLevel];
+    for (const hole of currentLevel.holes) {
+        if (gameState.ball.checkCollision(hole)) {
             // Ball fell through a hole
-            y = hole.y - ballRadius;
+            gameState.ball.y = hole.y - gameState.ball.radius;
             // Reset vertical speed
-            dy = 2; 
+            gameState.ball.dy = 2;
             break;
         }
     }
 
     // Game over if ball misses a hole
-    if (y + ballRadius > canvas.height && !level.holes.some(hole => x > hole.x && x < hole.x + hole.width &&
-        y + ballRadius > hole.y && y < hole.y + hole.height)) {
+    if (gameState.ball.y + gameState.ball.radius > canvas.height &&
+        !currentLevel.holes.some(hole => gameState.ball.checkCollision(hole))) {
         alert("Game Over!");
         return;
     }
+}
 
-    requestAnimationFrame(draw);
+function renderGame() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    gameState.ball.draw();
+    gameState.levels[gameState.currentLevel].draw();
 }
 
 document.addEventListener('keydown', function(e) {
     switch (e.key) {
         case 'ArrowLeft':
-            dx = -2;
+            gameState.ball.dx = -2;
             break;
         case 'ArrowRight':
-            dx = 2;
+            gameState.ball.dx = 2;
             break;
     }
 });
 
-draw();
+gameLoop();

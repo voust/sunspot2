@@ -11,3 +11,8 @@ canvas {
     background-color: #f0f0f0;
     border: 1px solid #ccc;
 }
+
+/* Make holes more visible */
+.hole {
+    background-color: #000; /* Black holes */
+}
