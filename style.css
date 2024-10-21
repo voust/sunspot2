@@ -2,29 +2,29 @@ body {
   font-family: 'Arial', sans-serif;
   background-color: #f0f0f0;
   margin: 0;
-  padding: 20px;
+  padding: 10px; /* Reduced padding for smaller screens */
   color: #333;
 }
 
 h1 {
   text-align: center;
-  font-size: 2em;
-  margin-bottom: 20px;
+  font-size: 1.5em; /* Reduced font size */
+  margin-bottom: 10px;
   color: #007bff; /* Blue like AIM */
 }
 
 #posts {
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   border: 1px solid #ccc;
-  padding: 10px;
+  padding: 5px; /* Reduced padding */
   background-color: #fff;
   border-radius: 5px;
 }
 
 .post {
   border-bottom: 1px solid #ccc;
-  padding: 10px;
-  margin-bottom: 10px;
+  padding: 5px; /* Reduced padding */
+  margin-bottom: 5px;
 }
 
 .post p {
@@ -32,27 +32,27 @@ h1 {
 }
 
 .timestamp {
-  font-size: 0.8em;
+  font-size: 0.7em; /* Reduced font size */
   color: #666;
 }
 
 #post-form {
   background-color: #fff;
-  padding: 20px;
+  padding: 10px;
   border-radius: 5px;
 }
 
 #post-form textarea {
   width: 100%;
-  height: 100px;
-  padding: 10px;
-  margin-bottom: 10px;
+  height: 80px; /* Reduced height */
+  padding: 5px; /* Reduced padding */
+  margin-bottom: 5px;
   border: 1px solid #ccc;
   resize: vertical;
 }
 
 #post-form button {
-  padding: 10px 20px;
+  padding: 5px 10px; /* Reduced padding */
   background-color: #007bff; /* Blue like AIM */
   color: white;
   border: none;
@@ -62,4 +62,19 @@ h1 {
 
 #post-form button:hover {
   background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Media query for smaller screens (like iPhones) */
+@media (max-width: 480px) {
+  #posts {
+    font-size: 0.8em; /* Reduced font size */
+  }
+
+  .post {
+    font-size: 0.8em; /* Reduced font size */
+  }
+
+  #post-form textarea {
+    font-size: 0.8em; /* Reduced font size */
+  }
 }
