@@ -77,10 +77,12 @@
 
       // Draw platforms
       platforms.forEach(platform => {
+        ctx.fillStyle = '#fff'; // Set fill color to white for platforms
         ctx.fillRect(platform.x, platform.y, platform.width, platform.height);
       });
 
       // Draw player
+      ctx.fillStyle = '#ff0'; // Set fill color to yellow for player
       ctx.fillRect(player.x, player.y, player.width, player.height);
 
       // Request next frame
