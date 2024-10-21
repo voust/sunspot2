@@ -1,0 +1,22 @@
+
+- Obtain and set up the Mapillary API key for data collection.
+
+## Usage
+
+- Run the data collection script to gather street view images and metadata.
+- Execute the preprocessing scripts to organize, encode, and augment the data.
+- Train the model using the provided training scripts.
+- Evaluate the model's performance with the evaluation scripts.
+- Deploy the model locally and use the prediction script to input new images and obtain location predictions.
+
+## Contribution
+
+Contributions to Sunspot are welcome. Please ensure that any contributions adhere to the project's ethical guidelines and data privacy standards.
+
+## License
+
+Specify the project's license here.
+
+## Contact
+
+For any questions or support, please contact Joshua 
