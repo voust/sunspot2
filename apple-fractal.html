@@ -1,74 +1,49 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Apple Fractal</title>
+  <title>Apple-Style Fractal</title>
   <style>
     body {
+      background-color: #f0f0f0;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
       margin: 0;
-      overflow: hidden;
     }
 
     canvas {
-      display: block;
-    }
-
-    #controls {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      background-color: rgba(0, 0, 0, 0.5);
-      padding: 10px;
-      border-radius: 5px;
-    }
-
-    #controls label {
-      display: block;
-      margin-bottom: 5px;
-    }
-
-    #controls input {
-      width: 100px;
+      background-color: #fff;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     }
   </style>
 </head>
 <body>
-  <div id="controls">
-    <label for="depth">Depth:</label>
-    <input type="number" id="depth" min="0" max="10" value="5">
-
-    <label for="size">Size:</label>
-    <input type="number" id="size" min="10" max="500" value="200">
-
-    <button id="reset">Reset</button>
-  </div>
-
-  <canvas id="canvas"></canvas>
+  <canvas id="fractalCanvas" width="600" height="600"></canvas>
 
   <script>
-    const canvas = document.getElementById('canvas');
+    const canvas = document.getElementById('fractalCanvas');
     const ctx = canvas.getContext('2d');
 
-    const depthInput = document.getElementById('depth');
-    const sizeInput = document.getElementById('size');
-    const resetButton = document.getElementById('reset');
-
+    // Apple-inspired color palette
     const colors = [
-      '#FF3333', // Red
-      '#FFCC33', // Yellow
-      '#99CC33', // Green
-      '#33CC33', // Light Green
-      '#33CC99', // Teal
-      '#3399CC', // Blue
-      '#3366CC', // Dark Blue
-      '#6633CC', // Purple
-      '#9933CC', // Pink
-      '#CC33CC', // Magenta
+      '#f0f0f0', // Light gray
+      '#e6e6e6', // Slightly darker gray
+      '#d9d9d9', // Even darker gray
+      '#c0c0c0', // Medium gray
+      '#a9a9a9', // Darker gray
+      '#808080', // Dark gray
+      '#696969', // Darker gray
+      '#525252', // Darkest gray
+      '#333333', // Black
     ];
 
-    function randomColor() {
-      return colors[Math.floor(Math.random() * colors.length)];
-    }
+    // Randomly choose a color from the palette
+    const randomColor = () => colors[Math.floor(Math.random() * colors.length)];
 
+    // Function to draw a fractal
     function drawFractal(x, y, size, depth) {
       if (depth === 0) {
         ctx.fillStyle = randomColor();
@@ -76,32 +51,39 @@
         return;
       }
 
-      const newSize = size / 2;
-      drawFractal(x, y, newSize, depth - 1);
-      drawFractal(x + newSize, y, newSize, depth - 1);
-      drawFractal(x, y + newSize, newSize, depth - 1);
-      drawFractal(x + newSize, y + newSize, newSize, depth - 1);
+      // Randomly choose a fractal pattern
+      const pattern = Math.random() < 0.5 ? 'triangle' : 'square';
+
+      if (pattern === 'triangle') {
+        // Draw a triangle
+        ctx.beginPath();
+        ctx.moveTo(x + size / 2, y);
+        ctx.lineTo(x, y + size);
+        ctx.lineTo(x + size, y + size);
+        ctx.closePath();
+        ctx.fillStyle = randomColor();
+        ctx.fill();
+
+        // Recursively draw smaller triangles
+        drawFractal(x, y, size / 2, depth - 1);
+        drawFractal(x + size / 2, y, size / 2, depth - 1);
+        drawFractal(x, y + size / 2, size / 2, depth - 1);
+      } else {
+        // Draw a square
+        ctx.fillRect(x, y, size, size);
+        ctx.fillStyle = randomColor();
+        ctx.fill();
+
+        // Recursively draw smaller squares
+        drawFractal(x, y, size / 2, depth - 1);
+        drawFractal(x + size / 2, y, size / 2, depth - 1);
+        drawFractal(x, y + size / 2, size / 2, depth - 1);
+        drawFractal(x + size / 2, y + size / 2, size / 2, depth - 1);
+      }
     }
 
-    function resizeCanvas() {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-      drawFractal(canvas.width / 2 - sizeInput.value / 2, canvas.height / 2 - sizeInput.value / 2, sizeInput.value, depthInput.value);
-    }
-
-    function reset() {
-      depthInput.value = 5;
-      sizeInput.value = 200;
-      resizeCanvas();
-    }
-
-    depthInput.addEventListener('input', resizeCanvas);
-    sizeInput.addEventListener('input', resizeCanvas);
-    resetButton.addEventListener('click', reset);
-
-    window.addEventListener('resize', resizeCanvas);
-
-    resizeCanvas();
+    // Draw the fractal
+    drawFractal(0, 0, canvas.width, 6);
   </script>
 </body>
 </html>
