@@ -3,6 +3,7 @@ import mapillary
 from geopy.geocoders import Nominatim
 import os
 import csv
+import time
 
 # Replace with your actual API key
 API_KEY = "YOUR_MAPILLARY_API_KEY"
@@ -54,6 +55,9 @@ def scrape_region(region_name, coordinates):
         with open(metadata_file, "a", newline="") as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow([image_path, image.latitude, image.longitude])
+
+        # Implement rate limiting
+        time.sleep(1)  # Wait for 1 second before making the next request
 
 # Scrape each region
 for region in regions:
