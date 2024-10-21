@@ -1,17 +1,45 @@
 body {
-  font-family: sans-serif;
+  font-family: 'Arial', sans-serif;
+  background-color: #f0f0f0;
   margin: 0;
   padding: 20px;
+  color: #333;
+}
+
+h1 {
+  text-align: center;
+  font-size: 2em;
+  margin-bottom: 20px;
+  color: #007bff; /* Blue like AIM */
 }
 
 #posts {
   margin-bottom: 20px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  background-color: #fff;
+  border-radius: 5px;
 }
 
 .post {
-  border: 1px solid #ccc;
+  border-bottom: 1px solid #ccc;
   padding: 10px;
   margin-bottom: 10px;
+}
+
+.post p {
+  margin: 0;
+}
+
+.timestamp {
+  font-size: 0.8em;
+  color: #666;
+}
+
+#post-form {
+  background-color: #fff;
+  padding: 20px;
+  border-radius: 5px;
 }
 
 #post-form textarea {
@@ -19,12 +47,19 @@ body {
   height: 100px;
   padding: 10px;
   margin-bottom: 10px;
+  border: 1px solid #ccc;
+  resize: vertical;
 }
 
 #post-form button {
   padding: 10px 20px;
-  background-color: #4CAF50;
+  background-color: #007bff; /* Blue like AIM */
   color: white;
   border: none;
   cursor: pointer;
+  border-radius: 5px;
+}
+
+#post-form button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
 }
