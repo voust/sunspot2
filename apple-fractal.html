@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Apple-Style Fractal</title>
+  <style>
+    body {
+      background-color: #f0f0f0;
+      font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+    }
+
+    canvas {
+      background-color: #fff;
+      border: 1px solid #ccc;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    }
+  </style>
+</head>
+<body>
+  <canvas id="fractalCanvas" width="600" height="600"></canvas>
+
+  <script>
+    const canvas = document.getElementById('fractalCanvas');
+    const ctx = canvas.getContext('2d');
+
+    // Apple-inspired color palette
+    const colors = [
+      '#f0f0f0', // Light gray
+      '#e6e6e6', // Slightly darker gray
+      '#d9d9d9', // Even darker gray
+      '#c0c0c0', // Medium gray
+      '#a9a9a9', // Darker gray
+      '#808080', // Dark gray
+      '#696969', // Darker gray
+      '#525252', // Darkest gray
+      '#333333', // Black
+    ];
+
+    // Randomly choose a color from the palette
+    const randomColor = () => colors[Math.floor(Math.random() * colors.length)];
+
+    // Function to draw a fractal
+    function drawFractal(x, y, size, depth) {
+      if (depth === 0) {
+        ctx.fillStyle = randomColor();
+        ctx.fillRect(x, y, size, size);
+        return;
+      }
+
+      // Randomly choose a fractal pattern
+      const pattern = Math.random() < 0.5 ? 'triangle' : 'square';
+
+      if (pattern === 'triangle') {
+        // Draw a triangle
+        ctx.beginPath();
+        ctx.moveTo(x + size / 2, y);
+        ctx.lineTo(x, y + size);
+        ctx.lineTo(x + size, y + size);
+        ctx.closePath();
+        ctx.fillStyle = randomColor();
+        ctx.fill();
+
+        // Recursively draw smaller triangles
+        drawFractal(x, y, size / 2, depth - 1);
+        drawFractal(x + size / 2, y, size / 2, depth - 1);
+        drawFractal(x, y + size / 2, size / 2, depth - 1);
+      } else {
+        // Draw a square
+        ctx.fillRect(x, y, size, size);
+        ctx.fillStyle = randomColor();
+        ctx.fill();
+
+        // Recursively draw smaller squares
+        drawFractal(x, y, size / 2, depth - 1);
+        drawFractal(x + size / 2, y, size / 2, depth - 1);
+        drawFractal(x, y + size / 2, size / 2, depth - 1);
+        drawFractal(x + size / 2, y + size / 2, size / 2, depth - 1);
+      }
+    }
+
+    // Draw the fractal
+    drawFractal(0, 0, canvas.width, 6);
+  </script>
+</body>
+</html>
