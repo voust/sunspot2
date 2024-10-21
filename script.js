@@ -80,7 +80,8 @@ const gameState = {
     levels: [
         new Level(levels[0].holes),
         new Level(levels[1].holes)
-    ]
+    ],
+    score: 0
 };
 
 // Game loop
@@ -109,6 +110,7 @@ function updateGame() {
         }
         gameState.ball.x = canvas.width / 2;
         gameState.ball.y = ballRadius;
+        gameState.score += 10; // Award points for completing a level
     }
 
     // Check for hole collisions
@@ -135,6 +137,9 @@ function renderGame() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     gameState.ball.draw();
     gameState.levels[gameState.currentLevel].draw();
+    ctx.font = "16px Arial";
+    ctx.fillStyle = "black";
+    ctx.fillText("Score: " + gameState.score, 10, 20); // Display score
 }
 
 document.addEventListener('keydown', function(e) {
