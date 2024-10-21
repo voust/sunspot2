@@ -72,6 +72,9 @@
           player.y < platform.y + platform.height
         ) {
           player.isFalling = false;
+          player.y = platform.y - player.height; // Adjust player position to be on top of the platform
+        } else {
+          player.isFalling = true; // Set falling to true if not colliding with a platform
         }
       });
 
