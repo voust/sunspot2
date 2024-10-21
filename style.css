@@ -109,3 +109,60 @@ h1 {
   pointer-events: none;
   z-index: -1;
 }
+
+/* Dark mode styles */
+body {
+  background-color: #1C1C1C; /* Dark background */
+  color: #E5E5E5; /* Light gray text */
+}
+
+h1 {
+  color: #F0F0F0; /* Light gray heading */
+}
+
+#posts {
+  background-color: #282828; /* Darker background */
+  border: 1px solid #333; /* Darker border */
+}
+
+.post {
+  background-color: #222; /* Slightly lighter background for posts */
+  border: 1px solid #333; /* Darker border */
+}
+
+.timestamp {
+  color: #888; /* Lighter gray timestamp */
+}
+
+#post-form {
+  background-color: #282828; /* Darker background */
+}
+
+#post-form textarea {
+  background-color: #333; /* Darker background */
+  color: #E5E5E5; /* Light gray text */
+}
+
+#post-form button {
+  background-color: #007bff; /* Blue like AIM */
+  color: white;
+}
+
+#post-form button:hover {
+  background-color: #0056b3; /* Darker blue on hover */
+}
+
+/* Responsive design for smaller screens */
+@media (max-width: 480px) {
+  #posts {
+    font-size: 0.9em;
+  }
+
+  .post {
+    font-size: 0.9em;
+  }
+
+  #post-form textarea {
+    font-size: 0.9em;
+  }
+}
