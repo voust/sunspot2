@@ -6,27 +6,33 @@ body {
   margin: 0;
   padding: 10px;
   color: #E5E5E5; /* Light gray text */
+  -webkit-font-smoothing: antialiased; /* Smoother text rendering */
+  -moz-osx-font-smoothing: grayscale; /* Smoother text rendering */
 }
 
 h1 {
   text-align: center;
-  font-size: 1.8em;
-  margin-bottom: 15px;
+  font-size: 2em; /* Larger heading */
+  margin-bottom: 20px;
   color: #F0F0F0; /* Light gray heading */
+  font-weight: 600; /* Slightly bolder heading */
 }
 
 #posts {
-  margin-bottom: 15px;
+  margin-bottom: 20px;
   border: 1px solid #333; /* Darker border */
-  padding: 10px;
+  padding: 15px;
   background-color: #282828; /* Darker background */
-  border-radius: 10px; /* Rounded corners */
+  border-radius: 12px; /* More rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
 .post {
   border-bottom: 1px solid #333; /* Darker border */
-  padding: 10px;
-  margin-bottom: 10px;
+  padding: 15px;
+  margin-bottom: 15px;
+  background-color: #222; /* Slightly lighter background for posts */
+  border-radius: 8px; /* Rounded corners */
 }
 
 .post p {
@@ -36,32 +42,41 @@ h1 {
 .timestamp {
   font-size: 0.8em;
   color: #888; /* Lighter gray timestamp */
+  margin-top: 5px;
 }
 
 #post-form {
   background-color: #282828; /* Darker background */
-  padding: 15px;
-  border-radius: 10px; /* Rounded corners */
+  padding: 20px;
+  border-radius: 12px; /* More rounded corners */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow */
 }
 
 #post-form textarea {
   width: 100%;
-  height: 100px;
-  padding: 10px;
-  margin-bottom: 10px;
+  height: 120px; /* More height for the textarea */
+  padding: 15px;
+  margin-bottom: 15px;
   border: 1px solid #333; /* Darker border */
   resize: vertical;
   background-color: #333; /* Darker background */
   color: #E5E5E5; /* Light gray text */
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif; /* Apple-like font stack */
+  -webkit-font-smoothing: antialiased; /* Smoother text rendering */
+  -moz-osx-font-smoothing: grayscale; /* Smoother text rendering */
 }
 
 #post-form button {
-  padding: 10px 20px;
+  padding: 12px 25px;
   background-color: #007bff; /* Blue like AIM */
   color: white;
   border: none;
   cursor: pointer;
   border-radius: 10px; /* Rounded corners */
+  font-weight: 600; /* Slightly bolder button text */
+  transition: background-color 0.2s ease; /* Smooth transition for hover effect */
 }
 
 #post-form button:hover {
@@ -71,14 +86,14 @@ h1 {
 /* Media query for smaller screens (like iPhones) */
 @media (max-width: 480px) {
   #posts {
-    font-size: 0.8em;
+    font-size: 0.9em;
   }
 
   .post {
-    font-size: 0.8em;
+    font-size: 0.9em;
   }
 
   #post-form textarea {
-    font-size: 0.8em;
+    font-size: 0.9em;
   }
 }
