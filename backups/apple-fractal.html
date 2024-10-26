@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Apple Fractal</title>
+  <style>
+    body {
+      margin: 0;
+      overflow: hidden;
+    }
+
+    canvas {
+      display: block;
+    }
+
+    #controls {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      background-color: rgba(0, 0, 0, 0.5);
+      padding: 10px;
+      border-radius: 5px;
+    }
+
+    #controls label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    #controls input {
+      width: 100px;
+    }
+  </style>
+</head>
+<body>
+  <div id="controls">
+    <label for="depth">Depth:</label>
+    <input type="number" id="depth" min="0" max="10" value="5">
+
+    <label for="size">Size:</label>
+    <input type="number" id="size" min="10" max="500" value="200">
+
+    <button id="reset">Reset</button>
+  </div>
+
+  <canvas id="canvas"></canvas>
+
+  <script>
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+
+    const depthInput = document.getElementById('depth');
+    const sizeInput = document.getElementById('size');
+    const resetButton = document.getElementById('reset');
+
+    const colors = [
+      '#FF3333', // Red
+      '#FFCC33', // Yellow
+      '#99CC33', // Green
+      '#33CC33', // Light Green
+      '#33CC99', // Teal
+      '#3399CC', // Blue
+      '#3366CC', // Dark Blue
+      '#6633CC', // Purple
+      '#9933CC', // Pink
+      '#CC33CC', // Magenta
+    ];
+
+    function randomColor() {
+      return colors[Math.floor(Math.random() * colors.length)];
+    }
+
+    function drawFractal(x, y, size, depth) {
+      if (depth === 0) {
+        ctx.fillStyle = randomColor();
+        ctx.fillRect(x, y, size, size);
+        return;
+      }
+
+      const newSize = size / 2;
+      drawFractal(x, y, newSize, depth - 1);
+      drawFractal(x + newSize, y, newSize, depth - 1);
+      drawFractal(x, y + newSize, newSize, depth - 1);
+      drawFractal(x + newSize, y + newSize, newSize, depth - 1);
+    }
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+      drawFractal(canvas.width / 2 - sizeInput.value / 2, canvas.height / 2 - sizeInput.value / 2, sizeInput.value, depthInput.value);
+    }
+
+    function reset() {
+      depthInput.value = 5;
+      sizeInput.value = 200;
+      resizeCanvas();
+    }
+
+    depthInput.addEventListener('input', resizeCanvas);
+    sizeInput.addEventListener('input', resizeCanvas);
+    resetButton.addEventListener('click', reset);
+
+    window.addEventListener('resize', resizeCanvas);
+
+    resizeCanvas();
+  </script>
+</body>
+</html>
